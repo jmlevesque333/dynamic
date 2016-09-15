@@ -1,0 +1,49 @@
+#include <iostream>
+#include <istream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <math.h>
+
+using namespace std;
+
+int main()
+{
+	fstream f;
+	f.open("input.txt");
+
+	int numberOfCases;
+	int numberOfNumbers;
+	int x;
+	string stringOfNumbers;
+	vector <int> vectorOfNumbers;
+
+	f >> numberOfCases;
+	for (int i = 0; i < numberOfCases; i++)
+	{
+		f >> numberOfNumbers;
+		for (int i = 0; i < numberOfNumbers; i++)
+		{
+			f >> x;
+			vectorOfNumbers.push_back(x);
+		}
+		vector <int> line(numberOfNumbers, 0);
+		for (int i = 0; i < numberOfNumbers; i++)
+		{
+			if (i == 0)
+			{
+				line[i] = vectorOfNumbers[i];
+			}
+			else
+			{
+				line[i] = fmax(line[i - 1] + vectorOfNumbers[i], vectorOfNumbers[i]);
+			}
+			
+		}
+
+		cout << line[numberOfNumbers-1] << endl; 
+	}
+
+	return 0;
+}
